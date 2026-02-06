@@ -1,49 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Global Live TV</title>
+    <title>Global Live TV Server</title>
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        body { background: #0b0b0b; color: #fff; font-family: sans-serif; }
-        .video-box { background: #000; border: 2px solid #00faff; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
-        .channel-list { background: #1a1a1a; padding: 15px; border-radius: 10px; max-height: 500px; overflow-y: auto; }
-        .chan-item { 
-            background: #333; padding: 10px; margin-bottom: 8px; border-radius: 5px; 
-            cursor: pointer; transition: 0.3s; display: block; width: 100%; border: none; color: #fff; text-align: left;
+        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; }
+        .player-container { margin-top: 20px; border: 2px solid #00faff; border-radius: 10px; overflow: hidden; background: #000; }
+        .channel-list { background: #111; border-radius: 10px; padding: 15px; max-height: 500px; overflow-y: auto; margin-top: 20px; border: 1px solid #333; }
+        .chan-btn { 
+            background: #222; color: #fff; border: 1px solid #444; width: 100%; 
+            padding: 10px; margin-bottom: 8px; text-align: left; border-radius: 5px; transition: 0.3s;
         }
-        .chan-item:hover { background: #00faff; color: #000; }
-        .vjs-big-play-centered .vjs-big-play-button { line-height: 1.5em; height: 1.5em; width: 3em; border-radius: 0.5em; }
+        .chan-btn:hover { background: #00faff; color: #000; font-weight: bold; }
+        .category-head { color: #ff00ff; font-size: 14px; margin-top: 15px; border-bottom: 1px solid #333; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
 <div class="container py-4">
-    <h2 class="text-center mb-4" style="color:#00faff;">GLOBAL TV PLAYER</h2>
-
+    <h3 class="text-center" style="color:#00faff;">MY LIVE TV HUB</h3>
+    
     <div class="row">
         <div class="col-lg-8">
-            <div class="video-box">
-                <video id="my-video" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="auto" height="auto" data-setup='{"fluid": true}'>
-                    <source id="video-source" src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" type="application/x-mpegURL">
+            <div class="player-container">
+                <video id="tv-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="auto" height="auto" data-setup='{"fluid": true}'>
+                    <source src="https://m-c04-j2pc-nat-bd.p-cdn.live/GTV/index.m3u8" type="application/x-mpegURL">
                 </video>
             </div>
-            <p class="text-info small">প্লে না হলে অন্য চ্যানেলে ক্লিক করুন। কিছু লিঙ্ক লোড হতে সময় নেয়।</p>
+            <p class="text-info mt-2 small">লোড হতে ১০-১৫ সেকেন্ড সময় নিতে পারে। বাফারিং হলে লিঙ্কটি অফলাইন হতে পারে।</p>
         </div>
 
         <div class="col-lg-4">
             <div class="channel-list">
-                <h5 class="border-bottom pb-2 mb-3">Channels</h5>
-                
-                <button class="chan-item" onclick="changeStream('https://linear-413.voot.com/out/v1/708b73f8a00a40f8b667246a4898f060/index.m3u8')">COLORS BANGLA (Sample)</button>
-                <button class="chan-item" onclick="changeStream('https://cdn.jio.com/sample/m3u8/somoy.m3u8')">SOMOY TV (Sample)</button>
-                <button class="chan-item" onclick="changeStream('https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8')">Test Stream 1</button>
-                <button class="chan-item" onclick="changeStream('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8')">Test Stream 2</button>
-                
-                <hr>
-                <p class="small text-warning">আপনার সংগৃহীত .m3u8 লিঙ্কগুলো এখানে বসান</p>
+                <h5 class="text-center">চ্যানেল তালিকা</h5>
+
+                <div class="category-head">বিনোদন (Entertainment)</div>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/StarJalsha/index.m3u8')">Star Jalsha</button>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/ZeeBangla/index.m3u8')">Zee Bangla</button>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/SonyAath/index.m3u8')">Sony Aath</button>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/JalshaMovies/index.m3u8')">Jalsha Movies</button>
+
+                <div class="category-head">খেলাধুলা (Sports)</div>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/GTV/index.m3u8')">GTV (Gazi TV)</button>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/TSports/index.m3u8')">T-Sports</button>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/SonyTen1/index.m3u8')">Sony Ten 1</button>
+
+                <div class="category-head">খবর (News)</div>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/SomoyTV/index.m3u8')">Somoy TV</button>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/JamunaTV/index.m3u8')">Jamuna TV</button>
+                <button class="chan-btn" onclick="change('https://m-c04-j2pc-nat-bd.p-cdn.live/IndependentTV/index.m3u8')">Independent TV</button>
             </div>
         </div>
     </div>
@@ -51,9 +59,9 @@
 
 <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
 <script>
-    var player = videojs('my-video');
+    var player = videojs('tv-player');
 
-    function changeStream(url) {
+    function change(url) {
         player.src({
             src: url,
             type: 'application/x-mpegURL'
@@ -63,34 +71,5 @@
 </script>
 
 </body>
-</html>
-                        T-Sports
-                    </div>
-                    <div class="channel-item" onclick="changeChan('https://m.jagobd.com/gtv')">
-                        GTV (Gazi TV)
-                    </div>
-
-                    <p class="text-info small mt-3">খবর (News)</p>
-                    <div class="channel-item" onclick="changeChan('https://m.jagobd.com/somoy')">
-                        Somoy TV
-                    </div>
-                    <div class="channel-item" onclick="changeChan('https://m.jagobd.com/jamuna')">
-                        Jamuna TV
-                    </div>
-                    <div class="channel-item" onclick="changeChan('https://m.jagobd.com/independent')">
-                        Independent TV
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function changeChan(url) {
-        document.getElementById('view').src = url;
-    }
-</script>
-
-</body>
-</html>
+    </html>
+    
